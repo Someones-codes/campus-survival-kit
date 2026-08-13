@@ -1,11 +1,45 @@
-@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+@layer base {
+    body {
+        @apply bg-paper bg-grid-paper bg-grid text-ink font-sans;
+    }
+}
+
+@layer components {
+    .card-academic {
+        @apply bg-white border border-ink/15 rounded-sm shadow-sm;
+    }
+
+    .label-tactical {
+        @apply font-mono text-xs uppercase tracking-widest text-ink-muted;
+    }
+
+    .badge-status {
+        @apply inline-flex items-center px-2 py-0.5 rounded-sm font-mono text-xs uppercase tracking-wide border;
+    }
+
+    .badge-status-ok {
+        @apply badge-status bg-ration-green/10 text-ration-green border-ration-green/30;
+    }
+
+    .badge-status-warn {
+        @apply badge-status bg-ration-highlight/20 text-ink border-ration-highlight/50;
+    }
+
+    .badge-status-over {
+        @apply badge-status bg-ration-red/10 text-ration-red border-ration-red/30;
+    }
+
+    .btn-tactical {
+        @apply inline-flex items-center justify-center px-4 py-2 bg-ration-green text-paper font-mono text-sm uppercase tracking-wide rounded-sm hover:bg-ink transition-colors;
+    }
+
+    .btn-tactical-outline {
+        @apply inline-flex items-center justify-center px-4 py-2 bg-transparent text-ink border border-ink/30 font-mono text-sm uppercase tracking-wide rounded-sm hover:bg-ink/5 transition-colors;
+    }
 }
