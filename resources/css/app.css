@@ -8,6 +8,13 @@
     body {
         @apply bg-paper bg-grid-paper bg-grid text-ink font-sans;
     }
+
+    /* Smaller grid texture on phones so it doesn't look noisy on small screens */
+    @media (max-width: 640px) {
+        body {
+            background-size: 16px 16px;
+        }
+    }
 }
 
 @layer components {
@@ -37,9 +44,54 @@
 
     .btn-tactical {
         @apply inline-flex items-center justify-center px-4 py-2 bg-ration-green text-paper font-mono text-sm uppercase tracking-wide rounded-sm hover:bg-ink transition-colors;
+        min-height: 44px;
     }
 
     .btn-tactical-outline {
         @apply inline-flex items-center justify-center px-4 py-2 bg-transparent text-ink border border-ink/30 font-mono text-sm uppercase tracking-wide rounded-sm hover:bg-ink/5 transition-colors;
+        min-height: 44px;
+    }
+
+    /*
+     * Page container padding: tight on phones, roomier as screens grow.
+     * Apply this class to the outer wrapper of your page content
+     * (e.g. the <div> right inside <main> in layouts/app.blade.php)
+     * instead of hardcoding px-4 sm:px-6 lg:px-8 everywhere.
+     */
+    .page-container {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    /*
+     * Card padding: smaller on phones so cards don't eat the whole
+     * viewport width in whitespace. Use instead of a bare p-6.
+     */
+    .card-padded {
+        @apply p-4 sm:p-6;
+    }
+
+    /*
+     * Section stacking: use for grid layouts that go from single
+     * column on phones to multi-column on larger screens, with
+     * tighter gaps on small screens.
+     */
+    .stack-grid {
+        @apply grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3;
+    }
+}
+
+@layer utilities {
+    /* Prevents inputs/selects from zooming the page in on iOS Safari */
+    @media (max-width: 640px) {
+        input,
+        select,
+        textarea {
+            font-size: 16px;
+        }
+    }
+
+    /* Tables need a floor width on mobile so text doesn't wrap into a mess before the scroll kicks in */
+    .table-min-width {
+        min-width: 640px;
     }
 }

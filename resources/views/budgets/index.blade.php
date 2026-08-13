@@ -6,8 +6,10 @@
 
         <div class="lg:col-span-2 space-y-4">
             @if ($budgets->isEmpty())
-                <div class="card-academic p-8 text-center">
-                    <p class="text-sm text-ink-muted">No Rations set yet. Create one to start tracking a limit.</p>
+                <div class="card-academic">
+                    <x-empty-state
+                        title="No Rations set yet."
+                        message="Create one to start tracking a spending limit." />
                 </div>
             @else
                 @foreach ($budgets as $budget)

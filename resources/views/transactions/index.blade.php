@@ -75,11 +75,14 @@
 
     <div class="card-academic overflow-hidden">
         @if ($transactions->isEmpty())
-            <div class="p-8 text-center">
-                <p class="text-sm text-ink-muted">No transactions match these filters yet.</p>
-            </div>
+            <x-empty-state
+                title="No transactions match these filters yet."
+                message="Try adjusting your filters, or log your first transaction."
+                actionLabel="Log Transaction"
+                :actionUrl="route('transactions.create')" />
         @else
-            <div class="overflow-x-auto">
+            {{-- Desktop table: hidden below md breakpoint --}}
+            <div class="hidden md:block overflow-x-auto">
                 <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-ink/10 bg-paper-dark/40">
@@ -128,6 +131,44 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+
+            {{-- Mobile cards: shown only below md breakpoint --}}
+            <div class="md:hidden divide-y divide-ink/5">
+                @foreach ($transactions as $transaction)
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="text-sm text-ink font-medium">{{ $transaction->description }}</div>
+                                <div class="text-xs text-ink-muted mt-0.5">
+                                    {{ $transaction->category->name }} &middot; {{ $transaction->transaction_date->format('d M Y') }}
+                                </div>
+                            </div>
+                            <div class="font-mono text-sm whitespace-nowrap
+                                {{ $transaction->type === 'income' ? 'text-ration-green' : 'text-ration-red' }}">
+                                {{ $transaction->type === 'income' ? '+' : '-' }}R {{ number_format($transaction->amount, 2) }}
+                            </div>
+                        </div>
+
+                        @if ($transaction->note)
+                            <div class="text-xs text-ink-muted mt-2">{{ $transaction->note }}</div>
+                        @endif
+
+                        <div class="flex gap-4 mt-3">
+                            <a href="{{ route('transactions.edit', $transaction) }}"
+                                class="text-xs font-mono uppercase text-ration-blue hover:underline">Edit</a>
+
+                            <form action="{{ route('transactions.destroy', $transaction) }}" method="POST"
+                                onsubmit="return confirm('Delete this transaction? This cannot be undone.');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-xs font-mono uppercase text-ration-red hover:underline">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
             </div>
 
             <div class="px-4 py-3 border-t border-ink/10">
