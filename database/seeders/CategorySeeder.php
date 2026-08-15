@@ -29,21 +29,17 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($incomeCategories as $name) {
-            Category::create([
-                'user_id' => null,
-                'name' => $name,
-                'type' => 'income',
-                'is_default' => true,
-            ]);
+            Category::firstOrCreate(
+                ['name' => $name, 'user_id' => null],
+                ['type' => 'income', 'is_default' => true]
+            );
         }
 
         foreach ($expenseCategories as $name) {
-            Category::create([
-                'user_id' => null,
-                'name' => $name,
-                'type' => 'expense',
-                'is_default' => true,
-            ]);
+            Category::firstOrCreate(
+                ['name' => $name, 'user_id' => null],
+                ['type' => 'expense', 'is_default' => true]
+            );
         }
     }
 }
