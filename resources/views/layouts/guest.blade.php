@@ -5,32 +5,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Campus Survival Kit') }}</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="icon" type="image/png" href="{{ asset('icon.png') }}">
 
-        <!-- Scripts -->
-       @php
-    $cssFile = glob(public_path('build/assets/app-*.css'))[0] ?? null;
-    @endphp
+        @php
+            $cssFile = glob(public_path('build/assets/app-*.css'))[0] ?? null;
+        @endphp
 
-    <style>
-        {!! $cssFile ? file_get_contents($cssFile) : '/* CSS file not found */' !!}
-    </style>
+        <style>
+            {!! $cssFile ? file_get_contents($cssFile) : '/* CSS file not found */' !!}
+        </style>
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+    <body class="min-h-screen">
+        <div class="min-h-screen flex flex-col items-center justify-center px-4 py-10">
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+            <a href="{{ route('dashboard') }}" class="flex items-center gap-2 mb-6">
+                <span class="font-mono text-xs px-2 py-1 border border-ink/30 rounded-sm text-ink-muted">CSK</span>
+                <span class="font-sans font-semibold text-ink">Campus Survival Kit</span>
+            </a>
+
+            <div class="w-full sm:max-w-md card-academic p-6 sm:p-8">
                 {{ $slot }}
             </div>
+
+            <p class="label-tactical mt-6 text-center">
+                Student Finance Tracker
+            </p>
+
         </div>
     </body>
 </html>
