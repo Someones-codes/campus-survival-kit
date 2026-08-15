@@ -51,6 +51,12 @@ RUN echo 'server { \
     location / { \
         try_files $uri $uri/ /index.php?$query_string; \
     } \
+    location ~* \.(css|js|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot|webp)$ { \
+        try_files $uri =404; \
+        access_log off; \
+        expires 30d; \
+        add_header Cache-Control "public, immutable"; \
+    } \
     location ~ \.php$ { \
         fastcgi_pass 127.0.0.1:9000; \
         fastcgi_index index.php; \
