@@ -7,7 +7,8 @@
 
     <title>{{ config('app.name', 'Campus Survival Kit') }} - {{ $header ?? 'Dashboard' }}</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+   <link rel="stylesheet" href="{{ asset('build/assets/app-D8oP8UHe.css') }}">
+    <script type="module" src="{{ asset('build/assets/app-3J7N80GV.js') }}"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="min-h-screen">
