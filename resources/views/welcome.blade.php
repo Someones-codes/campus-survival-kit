@@ -6,8 +6,13 @@
 
     <title>{{ config('app.name', 'Campus Survival Kit') }} — Stop Living on 2AM Instant Noodles</title>
 
-    <link rel="stylesheet" href="{{ asset('build/assets/app-D8oP8UHe.css') }}">
-    <script type="module" src="{{ asset('build/assets/app-3J7N80GV.js') }}"></script>
+    @php
+    $cssFile = glob(public_path('build/assets/app-*.css'))[0] ?? null;
+    @endphp
+
+    <style>
+        {!! $cssFile ? file_get_contents($cssFile) : '/* CSS file not found */' !!}
+    </style>
 </head>
 <body class="min-h-screen">
     <div class="min-h-screen flex flex-col">
