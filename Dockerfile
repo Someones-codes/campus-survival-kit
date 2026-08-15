@@ -77,6 +77,7 @@ php artisan config:cache \n\
 php artisan route:cache \n\
 php artisan view:cache \n\
 php artisan migrate --force \n\
+php artisan db:seed --class=CategorySeeder --force \n\
 php-fpm -D \n\
 nginx -g "daemon off;" \n\
 ' > /start.sh && chmod +x /start.sh
