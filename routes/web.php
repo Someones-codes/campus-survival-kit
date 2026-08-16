@@ -8,6 +8,63 @@ use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/setup-categories/{token}', function (string $token) {
+    if ($token !== env('SEED_SECRET')) {
+        abort(404);
+    }
+
+    $now = now();
+
+    $incomeCategories = [
+        'Allowance', 'Bursary', 'Part-time Job', 'Freelance Work', 'Other Income',
+    ];
+
+    $expenseCategories = [
+        'Café & Fuel', 'Textbooks & Tech', 'Night Out', 'Rent & Survival',
+        'Transport', 'Data & Airtime', 'Entertainment', 'Other',
+    ];
+
+    $inserted = [];
+
+    foreach ($incomeCategories as $name) {
+        $exists = \Illuminate\Support\Facades\DB::table('categories')
+            ->whereNull('user_id')->where('name', $name)->exists();
+
+        if (! $exists) {
+            \Illuminate\Support\Facades\DB::table('categories')->insert([
+                'user_id' => null,
+                'name' => $name,
+                'type' => 'income',
+                'is_default' => true,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+            $inserted[] = $name;
+        }
+    }
+
+    foreach ($expenseCategories as $name) {
+        $exists = \Illuminate\Support\Facades\DB::table('categories')
+            ->whereNull('user_id')->where('name', $name)->exists();
+
+        if (! $exists) {
+            \Illuminate\Support\Facades\DB::table('categories')->insert([
+                'user_id' => null,
+                'name' => $name,
+                'type' => 'expense',
+                'is_default' => true,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+            $inserted[] = $name;
+        }
+    }
+
+    $total = \Illuminate\Support\Facades\DB::table('categories')->whereNull('user_id')->count();
+
+    return 'Inserted: ' . implode(', ', $inserted) . ' | Total default categories now in DB: ' . $total;
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
