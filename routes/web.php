@@ -8,6 +8,8 @@ use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
+
+
 Route::get('/setup-categories/{token}', function (string $token) {
     if ($token !== env('SEED_SECRET')) {
         abort(404);

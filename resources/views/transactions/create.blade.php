@@ -60,7 +60,7 @@
             </div>
 
             <div class="flex gap-3 pt-2">
-                <x-submit-button label="Save Transaction" loading-label="Saving..." />
+                <button type="submit" class="btn-tactical">Save Transaction</button>
                 <a href="{{ route('transactions.index') }}" class="btn-tactical-outline">Cancel</a>
             </div>
         </form>

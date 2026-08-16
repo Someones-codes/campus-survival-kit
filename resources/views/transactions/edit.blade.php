@@ -8,18 +8,18 @@
             @method('PUT')
 
             <div>
-                <label class="label-tactical block mb-1">Type</label>
-                <div class="flex gap-4">
-                    <label class="flex items-center gap-2 text-sm">
-                        <input type="radio" name="type" value="income" @checked(old('type', $transaction->type) === 'income')>
-                        Income
-                    </label>
-                    <label class="flex items-center gap-2 text-sm">
-                        <input type="radio" name="type" value="expense" @checked(old('type', $transaction->type) === 'expense')>
-                        Expense
-                    </label>
-                </div>
-            </div>
+    <label class="label-tactical block mb-1">Type</label>
+    <div class="flex gap-4">
+        <label class="flex items-center gap-2 text-sm">
+            <input type="radio" name="type" value="income" @checked(old('type', request('type')) === 'income')>
+            Income
+        </label>
+        <label class="flex items-center gap-2 text-sm">
+            <input type="radio" name="type" value="expense" @checked(old('type', request('type', 'expense')) === 'expense')>
+            Expense
+        </label>
+    </div>
+</div>
 
             <div>
                 <label class="label-tactical block mb-1">Category</label>
